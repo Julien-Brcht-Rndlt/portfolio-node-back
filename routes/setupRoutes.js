@@ -1,6 +1,6 @@
 const myselfRouter = require('./myself');
-const projectsRouter = require('./myself');
-const skillsRouter = require('./myself');
+const projectsRouter = require('./projects');
+const skillsRouter = require('./skills');
 
 const setupRoutes = (app) => {
   app.use('/myself', myselfRouter);
