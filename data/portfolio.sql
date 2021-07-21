@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `portfolio`.`myself` (
   `firstname` VARCHAR(80) NOT NULL,
   `lastname` VARCHAR(80) NOT NULL,
   `role` VARCHAR(150) NULL,
-  `about` VARCHAR(45) NULL,
+  `about` TEXT NULL,
   `contact` VARCHAR(150) NULL,
   `linkedin` VARCHAR(255) NULL,
   `github` VARCHAR(255) NULL,
@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS `portfolio`.`project` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(100) NOT NULL,
   `main_img` VARCHAR(100) NULL,
-  `desc` TEXT() NULL,
+  `desc` TEXT NULL,
   `github` VARCHAR(255) NULL,
   `url` VARCHAR(255) NULL,
   PRIMARY KEY (`id`))
@@ -68,3 +68,14 @@ ENGINE = InnoDB;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+-- -----------------------------------------------------
+-- INSERT INTO
+-- -----------------------------------------------------
+
+INSERT INTO myself (`firstname`, `lastname`, `role`, `about`, `contact`, `linkedin`, `github`) 
+VALUES ('Julien Nicolas', 'Brachet-Randoulet', 'Dev Web Fullstack', 'After 10 years in IT Software development, mainly
+          oriented in Java JEE ecosystems, I have decided to go
+          for some new challenges.
+          Therefore, in the short-term, I aim to enroll on a work-
+          study training starting from september 2021.', 'jn.brachet.randlt@gmail.com', '', 'https://github.com/Julien-Brcht-Rndlt');
