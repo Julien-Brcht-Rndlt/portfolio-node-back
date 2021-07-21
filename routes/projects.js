@@ -71,4 +71,23 @@ router.patch('/:id', (req, res) => {
             });
 });
 
+router.delete('/:id', (req, res) => {
+
+    const projectId = req.params.id;
+
+    const sql = 'DELETE FROM project WHERE id = ?';
+
+    connection.promise().query(sql, projectId)
+            .then(([result]) => {
+            if(result.affectedRows){
+                res.sendStatus(204);
+            } else {
+                res.status(404).send(`Couldn't delete project #${projectId} resource, this resource doesn't exist!`);
+            }
+            })
+            .catch((err) => {
+                res.status(500).send(`Error server: ${err.message}`);
+            });
+});
+
 module.exports = router;
