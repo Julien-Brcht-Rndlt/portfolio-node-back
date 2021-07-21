@@ -37,4 +37,35 @@ router.post('/', (req, res) => {
     }
 });
 
+router.patch('/:id', (req, res) => {
+
+    const skillId = req.params.id;
+    const skillValues = req.body;
+    let skill = null;
+
+    let sql = 'SELECT * FROM skill WHERE id = ?';
+
+    connection.promise().query(sql, skillId)
+            .then(([results]) => {
+                if(!results.length){
+                    return Promise.reject('NOT_EXISTING_RESOURCES');
+                } else {
+                    skill = results[0];
+                    sql = 'UPDATE skill SET ? WHERE id = ?';
+                    return connection.promise().query(sql, [skillValues, skillId]);
+                }
+            })
+            .then(() => {
+                skill = { ...skill, ...skillValues};
+                res.status(200).json(skill);
+            })
+            .catch((err) => {
+                if(err === 'NOT_EXISTING_RESOURCES'){
+                    res.status(404).send(`Couldn't modify skill #${skillId} resource, this resource doesn't exist!`);
+                } else {
+                    res.status(500).send(`Error server: ${err.message}`);
+                }
+            });
+});
+
 module.exports = router;
