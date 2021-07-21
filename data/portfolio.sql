@@ -43,7 +43,7 @@ DROP TABLE IF EXISTS `portfolio`.`project` ;
 
 CREATE TABLE IF NOT EXISTS `portfolio`.`project` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(100) NOT NULL,
+  `title` VARCHAR(100) NOT NULL,
   `main_img` VARCHAR(100) NULL,
   `desc` TEXT NULL,
   `github` VARCHAR(255) NULL,
