@@ -40,4 +40,35 @@ router.post('/', (req, res) => {
     }
 });
 
+router.patch('/:id', (req, res) => {
+
+    const projectId = req.params.id;
+    const projectValues = req.body;
+    let project = null;
+
+    let sql = 'SELECT * FROM project WHERE id = ?';
+
+    connection.promise().query(sql, projectId)
+            .then(([results]) => {
+                if(!results.length){
+                    return Promise.reject('NOT_EXISTING_RESOURCES');
+                } else {
+                    project = results[0];
+                    sql = 'UPDATE project SET ? WHERE id = ?';
+                    return connection.promise().query(sql, [projectValues, projectId]);
+                }
+            })
+            .then(() => {
+                project = { ...project, ...projectValues};
+                res.status(200).json(project);
+            })
+            .catch((err) => {
+                if(err === 'NOT_EXISTING_RESOURCES'){
+                    res.status(404).send(`Couldn't modify project #${projectId} resource, this resource doesn't exist!`);
+                } else {
+                    res.status(500).send(`Error server: ${err.message}`);
+                }
+            });
+});
+
 module.exports = router;
