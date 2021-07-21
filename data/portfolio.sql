@@ -58,7 +58,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `portfolio`.`skill` ;
 
 CREATE TABLE IF NOT EXISTS `portfolio`.`skill` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `label` VARCHAR(80) NULL,
   `level` VARCHAR(50) NULL,
   PRIMARY KEY (`id`))
