@@ -1,7 +1,9 @@
+const myselfRouter = require('./myself');
+
 const setupRoutes = (app) => {
-    // app.use('/', router);
-  };
+  app.use('/myself', myselfRouter);
+};
   
-  module.exports = {
-    setupRoutes,
-  };
+module.exports = {
+  setupRoutes,
+};
