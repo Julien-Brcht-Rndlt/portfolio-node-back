@@ -13,4 +13,35 @@ router.get('/', (req, res) => {
     });
 });
 
+router.patch('/:id', (req, res) => {
+
+    const myselfId = req.params.id;
+    const myselfValues = req.body;
+    let myself = null;
+
+    let sql = 'SELECT * FROM myself WHERE id = ?';
+
+    connection.promise().query(sql, myselfId)
+            .then(([results]) => {
+                if(!results.length){
+                    return Promise.reject('NOT_EXISTING_RESOURCES');
+                } else {
+                    myself = results[0];
+                    sql = 'UPDATE myself SET ? WHERE id = ?';
+                    return connection.promise().query(sql, [myselfValues, myselfId]);
+                }
+            })
+            .then(() => {
+                myself = { ...myself, ...myselfValues};
+                res.status(200).json(myself);
+            })
+            .catch((err) => {
+                if(err === 'NOT_EXISTING_RESOURCES'){
+                    res.status(404).send(`Couldn't modify myself #${myselfId} resource, this resource doesn't exist!`);
+                } else {
+                    res.status(500).send(`Error server: ${err.message}`);
+                }
+            });
+});
+
 module.exports = router;

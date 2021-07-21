@@ -68,4 +68,24 @@ router.patch('/:id', (req, res) => {
             });
 });
 
+router.delete('/:id', (req, res) => {
+
+    const skillId = req.params.id;
+
+    const sql = 'DELETE FROM skill WHERE id = ?';
+
+    connection.promise().query(sql, skillId)
+            .then(([result]) => {
+            if(result.affectedRows){
+                res.sendStatus(204);
+            } else {
+                res.status(404).send(`Couldn't delete skill #${skillId} resource, this resource doesn't exist!`);
+            }
+            })
+            .catch((err) => {
+                res.status(500).send(`Error server: ${err.message}`);
+            });
+});
+
+
 module.exports = router;
