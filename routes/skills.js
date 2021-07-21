@@ -2,7 +2,7 @@ const router = require('express').Router();
 const connection = require('../db-config');
 
 router.get('/', (req, res) => {
-  const sql = 'SELECT * FROM skills';
+  const sql = 'SELECT * FROM skill';
   connection
     .promise()
     .query(sql)
