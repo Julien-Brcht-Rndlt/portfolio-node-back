@@ -33,7 +33,6 @@ router.post('/', checkAuthFields, (req, res) => {
                 if (jwterr) {
                     return res.status(500).json({ message: `Error while attempting login: ${jwterr.message}`});
                 }
-                console.log('token', token);
                 const options = {
                     httpOnly: true,
                     expiresIn: '1h',
