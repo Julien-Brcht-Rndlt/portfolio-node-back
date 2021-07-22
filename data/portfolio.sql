@@ -65,6 +65,18 @@ CREATE TABLE IF NOT EXISTS `portfolio`.`skill` (
 ENGINE = InnoDB;
 
 
+-- -----------------------------------------------------
+-- Table `portfolio`.`admin`
+-- -----------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS `portfolio`.`admin` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `email` VARCHAR(100) NOT NULL,
+  `password` VARCHAR(255) NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+
+
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
