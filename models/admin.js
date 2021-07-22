@@ -1,4 +1,4 @@
-const db = require("../db-config");
+const connection = require("../db-config");
 const argon2 = require("argon2");
 
 const hashOptions = {
@@ -18,14 +18,23 @@ const verifyPassword = (plainPassword, hashedpassword) => {
 
 const create = (email, hashedpassword) => {
 	const sql = "INSERT INTO admin (email, password) VALUES (?,?)";
-	return db
+	return connection
 		.promise()
 		.query(sql, [email, hashedpassword])
 		.then(([{insertId}]) => ({ id: insertId, email }));
 };
 
+const findByEmail = (email) => {
+    const sql = "SELECT * FROM admin WHERE email = ?";
+    return connection
+        .promise()
+        .query(sql, [email])
+        .then(([results]) => results[0]);
+}
+
 module.exports = {
 	create,
+    findByEmail,
 	hashPassword,
     verifyPassword,
 };
