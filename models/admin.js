@@ -12,6 +12,10 @@ const hashPassword = (plainPassword) => {
 	return argon2.hash(plainPassword, hashOptions);
 };
 
+const verifyPassword = (plainPassword, hashedpassword) => {
+    return argon2.verify(hashedpassword, plainPassword, hashOptions);
+}
+
 const create = (email, hashedpassword) => {
 	const sql = "INSERT INTO admin (email, password) VALUES (?,?)";
 	return db
@@ -23,4 +27,5 @@ const create = (email, hashedpassword) => {
 module.exports = {
 	create,
 	hashPassword,
+    verifyPassword,
 };
