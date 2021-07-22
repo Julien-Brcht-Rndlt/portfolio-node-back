@@ -2,6 +2,7 @@ const router = require("express").Router();
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
 const checkAuthFields = require('../middlewares/check-fields');
+const checkJWT = require('../middlewares/check-jwt');
 const Admin = require('../models/admin');
 
 const isProduction = process.env.NODE_ENV === 'production'
@@ -31,7 +32,8 @@ router.post('/', checkAuthFields, (req, res) => {
             jwt.sign({ payload }, privateKey, (jwterr, token) => {
                 if (jwterr) {
                     return res.status(500).json({ message: `Error while attempting login: ${jwterr.message}`});
-                } 
+                }
+                console.log('token', token);
                 const options = {
                     httpOnly: true,
                     expiresIn: '1h',
@@ -50,6 +52,10 @@ router.post('/', checkAuthFields, (req, res) => {
             res.status(500).json({ message: `Error while attempting login: ${err.message}`})
         }
     });
+});
+
+router.get('/check', checkJWT, (req, res) => {
+    res.json(req.admin);
 });
 
 
