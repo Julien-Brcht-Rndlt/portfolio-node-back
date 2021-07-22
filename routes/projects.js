@@ -32,7 +32,7 @@ router.post('/', (req, res) => {
 
         connection.promise().query(sql, [title, main_img, desc, github, url])
                     .then(([{insertId}]) => {
-                        res.status(201).json({ insertId, title, main_img, desc, github, url });
+                        res.status(201).json({ id: insertId, title, main_img, desc, github, url });
                     })
                     .catch((err) => {
                         res.status(500).send(`Error server: ${err.message}`);

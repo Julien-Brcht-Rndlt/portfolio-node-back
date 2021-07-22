@@ -29,7 +29,7 @@ router.post('/', (req, res) => {
 
         connection.promise().query(sql, [label, level])
                     .then(([{insertId}]) => {
-                        res.status(201).json({ insertId, label, level });
+                        res.status(201).json({ id: insertId, label, level });
                     })
                     .catch((err) => {
                         res.status(500).send(`Error server: ${err.message}`);
